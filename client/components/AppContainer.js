@@ -5,7 +5,7 @@ import Main from './Main';
 
 function mapStateToProps(state) {
   return {
-    password: state.password
+    activities: state.activities,
   };
 }
 

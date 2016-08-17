@@ -1,37 +1,25 @@
 import React from 'react';
-import FinalResult from './FinalResult';
+// import FlatButton from 'material-ui/FlatButton';
+// import TextField from 'material-ui/TextField';
 
-const Main = ({ updatePassword, updateDomain, password }) => {
+import AppBar from 'material-ui/AppBar';
+import IconButton from 'material-ui/IconButton';
+import NavigationClose from 'material-ui/svg-icons/navigation/close';
 
-  function handlePasswordChange(event) {
-    updatePassword(event.target.value);
-  }
 
-  function handleDomainChange(event) {
-    updateDomain(event.target.value);
-  }
-
+const Main = (props) => {
   return (
-    <div className="maincontent">
-      <h1>Welcome to <em>Spicy Password</em></h1>
+    <div>
 
-      <p>this is the</p>
+      <AppBar
+        title={<span>Stand Up To Do</span>}
+        iconElementLeft={<IconButton><NavigationClose /></IconButton>}
+        // iconElementRight={<FlatButton label="Save" />}
+      />
 
-      <div className="maincontent__password">
-        <input type="password" placeholder="password" onChange={handlePasswordChange} />
-      </div>
 
-      <p>for my account on</p>
-
-      <div className="maincontent__domain">
-        <input type="text" placeholder="facebook.com" defaultValue={password.domain} onChange={handleDomainChange} />
-      </div>
-
-      <p>and this is the result</p>
-
-      <div className="maincontent__result">
-        <input type="text" value={password.result} readOnly />
-      </div>
+      {/* We use cloneElement here so we can auto pass down props */}
+        {React.cloneElement(props.children, props)}
 
     </div>
   );

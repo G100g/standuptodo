@@ -1,15 +1,15 @@
 
-export const updatePassword = (text) => {
+export const addActivity = (text) => {
   return {
-    type: 'UPDATE_PASSWORD',
+    type: 'ADD_ACTIVITY',
     value: text,
   };
 };
 
 
-export const updateDomain = (domain) => {
+export const deleteActiviy = (id) => {
   return {
-    type: 'UPDATE_DOMAIN',
-    value: domain,
+    type: 'DELETE_ACTIVITY',
+    value: id,
   };
 };

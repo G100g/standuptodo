@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
-import password from './password';
+import activities from './activities';
+import { routerReducer } from 'react-router-redux'; // we need this for react-router
 
 // Reducers list (just one for now)
-const spicyPasswordApp = combineReducers({
-  password,
+const MainApp = combineReducers({
+  activities,
+  routing: routerReducer,
 });
 
-export default spicyPasswordApp;
+export default MainApp;
