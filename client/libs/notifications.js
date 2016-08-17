@@ -61,43 +61,78 @@ const NotEngine = {
 
 };
 
-console.log("MARIo");
+console.log('MARIo');
 
-navigator.serviceWorker.register('sw.js')
-    .then(function (ref) {
-      console.log(ref);
+function onRegistration(registration) {
+  if (registration.waiting) {
+    console.log('waiting', registration.waiting);
+    registration.waiting.addEventListener('statechange', onStateChange('waiting'));
+  }
 
-      return navigator.serviceWorker.ready;
-    })
-    .then(function (ref) {
-      console.log(ref);
+  if (registration.installing) {
+    console.log('installing', registration.installing);
+    registration.installing.addEventListener('statechange', onStateChange('installing'));
+  }
 
-      NotEngine.sendMessage({
-        command: 'add',
-        url: 'blabla',
-      }).then(function () {
-        // If the promise resolves, just display a success message.
-        // ChromeSamples.setStatus('Added to cache.');
-        console.log('Messages sent');
-      }).catch((err) => {
-        // console.log('Error send messgabe');
-        console.error(err)
-      }); // If t
+  if (registration.active) {
+    console.log('active', registration.active);
+    registration.active.addEventListener('statechange', onStateChange('active'));
+  }
+
+  return registration;
+}
+
+function onStateChange(from) {
+  return function (e) {
+    console.log('statechange', from, 'to', e.target.state);
+
+    if (e.target.state === 'activated') {
+    NotEngine.sendMessage({
+      command: 'SET_NOTIFICATION',
+      options: {
+        timeout: 60*1000,
+        title: 'What did you do last hour?',
+        config: {
+          body: 'Bla bla bla',
+          requireInteraction: true,
+        },
+      },
+    }).then(function () {
+      // If the promise resolves, just display a success message.
+      // ChromeSamples.setStatus('Added to cache.');
+      console.log('Messages sent');
+    }).catch((err) => {
+      // console.log('Error send messgabe');
+      console.error(err);
+    }); // If t
+  }
+  };
+}
+
+navigator.serviceWorker.register('sw.js', { scope: './' })
+    .then(navigator.serviceWorker.ready)
+    .then(onRegistration)
+    .then(function (registration) {
+      console.log(registration);
+
+
+
+
 
 
   // navigator.serviceWorker.controller.postMessage({'command': 'say-hello!'})
 
-  // Notification.requestPermission(function(result) {
-  //   if (result === 'granted') {
-  //     console.log(result);
-  //     navigator.serviceWorker.ready.then(function(registration) {
-  //       console.log(registration);
-  //       registration.showNotification('Notification with ServiceWorker');
-  //     }, function (err){
-  //       console.log(err);
-  //     });
-  //   }
-  // });
+      // Notification.requestPermission(function(result) {
+      //   if (result === 'granted') {
+      //     console.log(result);
+      //     navigator.serviceWorker.ready.then(function(registration) {
+      //       console.log(registration);
+      //       registration.showNotification('Notification with ServiceWorker');
+      //     }, function (err){
+      //       console.log(err);
+      //     });
+      //   }
+      // });
     })
     .catch((err) => {
       console.log('Error registering service worker', err);
