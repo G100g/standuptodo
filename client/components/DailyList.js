@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 
 import { Link } from 'react-router';
 
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
+import {Button, IconButton} from 'react-toolbox/lib/button';
 
-import { List } from 'material-ui/List';
+import { List } from 'react-toolbox/lib/list';
 
 import Activity from './Activity';
 
@@ -20,9 +19,7 @@ class DailyList extends Component {
         </List>
 
         <Link to="/add">
-          <FloatingActionButton>
-            <ContentAdd />
-          </FloatingActionButton>
+          <Button icon='add' floating />
         </Link>
       </div>
     );

@@ -1,68 +1,53 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router';
 
-import { Card } from 'material-ui/Card';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
+import { Card, CardMedia, CardTitle, CardText, CardActions } from 'react-toolbox/lib/card';
 
-import TimePicker from 'material-ui/TimePicker';
-import DatePicker from 'material-ui/DatePicker';
+import Button from 'react-toolbox/lib/button';
+import Input from 'react-toolbox/lib/input';
+import DatePicker from 'react-toolbox/lib/date_picker';
 
-const style = {
-  margin: 12,
-};
+// import TimePicker from 'material-ui/TimePicker';
+// import DatePicker from 'material-ui/DatePicker';
 
-const AddForm = ({ addActivity }) => {
-  let val = '';
-  let currentDate = new Date();
+// const style = {
+//   margin: 12,
+// };
 
-  return {
-
-    handleChangeTimePicker24(event, date) {
-      // this.setState({value24: date});
-    },
+class AddForm extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+          title: '',
+          date: new Date(),
+        };
+    }
 
     onTap() {
-      addActivity(val);
-    },
+      this.props.addActivity(this.state.title);
+    }
 
-    onChange(e) {
-      val = e.target.value;
-    },
+    handleChange(item, value) {
+      this.setState({...this.state, [item]: value});
+    }
 
     render() {
       return (
-      <Card style={style}>
+      <Card>
         <h1>Add</h1>
 
-        <TextField
-          fullWidth
-          hintText="What did you do in the last hour?"
-          multiLine
-          rows={2}
-          rowsMax={4}
-          onChange={this.onChange}
+        <Input type='text' multiline label='What did you do in the last hour?' value={this.state.title} onChange={this.handleChange.bind(this, 'title')} />
 
-        />
+        <DatePicker label='Date' onChange={this.handleChange.bind(this, 'date')} value={this.state.date} />
 
-        <TimePicker
-          format="24hr"
-          hintText="24hr Format"
-          defaultTime={currentDate}
-          onChange={this.handleChangeTimePicker24}
-        />
-
-        <DatePicker hintText="Event Date" autoOk defaultDate={currentDate} />
-
-        <RaisedButton label="Save" primary style={style} onTouchTap={this.onTap} />
+        <Button label="Save" raised primary onClick={this.onTap.bind(this)} />
 
         <Link to="/">
-          <RaisedButton label="Close" style={style} />
+          <Button label="Close" flat/>
         </Link>
       </Card>
     );
-    },
-  };
-};
+  }
+}
 
 export default AddForm;

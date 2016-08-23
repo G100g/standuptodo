@@ -1,10 +1,10 @@
 import React from 'react';
 
-import {ListItem} from 'material-ui/List';
+import { ListItem } from 'react-toolbox/lib/list';
 
 const Activity = ({ title }) => {
   return (
-    <ListItem primaryText={title} />
+    <ListItem caption={title} />
   );
 };
 

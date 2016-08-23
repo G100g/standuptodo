@@ -2,27 +2,32 @@ import React from 'react';
 // import FlatButton from 'material-ui/FlatButton';
 // import TextField from 'material-ui/TextField';
 
-import AppBar from 'material-ui/AppBar';
-import IconButton from 'material-ui/IconButton';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
+import { AppBar, Checkbox, IconButton } from 'react-toolbox';
+import { Layout, NavDrawer, Panel, Sidebar } from 'react-toolbox';
 
 
 const Main = (props) => {
-  return (
-    <div>
+  return {
 
-      <AppBar
-        title={<span>Stand Up To Do</span>}
-        iconElementLeft={<IconButton><NavigationClose /></IconButton>}
-        // iconElementRight={<FlatButton label="Save" />}
-      />
+    render() {
+      return (<Layout>
+
+      <Panel>
+            <AppBar><IconButton icon="menu" inverse onClick={this.toggleDrawerActive} /></AppBar>
+            <div style={{ flex: 1, overflowY: 'auto', padding: '1.8rem' }}>
+                {React.cloneElement(props.children, props)}
+            </div>
+            {/* We use cloneElement here so we can auto pass down props */}
+
+        </Panel>
 
 
-      {/* We use cloneElement here so we can auto pass down props */}
-        {React.cloneElement(props.children, props)}
+    </Layout>);
+    },
+    toggleDrawerActive() {
 
-    </div>
-  );
+    },
+  };
 };
 
 export default Main;

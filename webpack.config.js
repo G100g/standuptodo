@@ -1,12 +1,12 @@
 const path = require('path');
-// const autoprefixer = require('autoprefixer');
+const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   devtool: 'source-map',
   entry: [
         './client/index',
-],
+  ],
       // 'dist/sw.js':
         // './client/sw.js',
 
@@ -23,8 +23,12 @@ module.exports = {
   //   }),
   // ],
   resolve: {
-    extensions: ['', '.js', '.scss'],
+    extensions: ['', '.scss', '.css', '.js', '.json'],
     root: [path.join(__dirname, './client')],
+    modulesDirectories: [
+      'node_modules',
+      path.resolve(__dirname, './node_modules')
+    ],
   },
   module: {
     loaders: [
@@ -38,19 +42,18 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/,
-        loader: 'style-loader!css-loader',
-        // loader: ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader'),
-      },
-      {
-        test: /\.scss$/,
-        loader: 'style-loader!css-loader!sass-loader!postcss-loader',
-        // loader: ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader'),
-      },
+        test: /(\.scss|\.css)$/,
+        loader: ExtractTextPlugin.extract('style', 'css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass')
+      }
     ],
   },
+  postcss: [autoprefixer],
+  sassLoader: {
+    data: '@import "theme/_config.scss";',
+    includePaths: [path.resolve(__dirname, './client')]
+  },
   plugins: [
-    new ExtractTextPlugin('base.css', {
+    new ExtractTextPlugin('bundle.css', {
       allChunks: true,
     }),
   ],

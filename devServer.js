@@ -9,6 +9,8 @@ var compiler = webpack(config);
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: false,
   publicPath: config.output.publicPath,
+  silent: false,
+  stats: { color: true }
 }));
 
 app.use(require('webpack-hot-middleware')(compiler));
