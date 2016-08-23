@@ -61,6 +61,47 @@ const NotEngine = {
 
 };
 
+function subscribePush() {
+  // Disable the button so it can't be changed while
+  // we process the permission request
+
+  navigator.serviceWorker.ready.then(function(reg) {
+    reg.pushManager.subscribe({userVisibleOnly: true})
+      .then(function(subscription) {
+        // The subscription was successful
+        // isPushEnabled = true;
+        // subBtn.textContent = 'Unsubscribe from Push Messaging';
+        // subBtn.disabled = false;
+        //
+        // // Update status to subscribe current user on server, and to let
+        // // other users know this user has subscribed
+        // var endpoint = subscription.endpoint;
+        // var key = subscription.getKey('p256dh');
+        // updateStatus(endpoint,key,'subscribe');
+
+          console.log('Subscribed');
+
+      })
+      .catch(function(e) {
+        if (Notification.permission === 'denied') {
+          // The user denied the notification permission which
+          // means we failed to subscribe and the user will need
+          // to manually change the notification permission to
+          // subscribe to push messages
+          console.log('Permission for Notifications was denied');
+
+        } else {
+          // A problem occurred with the subscription, this can
+          // often be down to an issue or lack of the gcm_sender_id
+          // and / or gcm_user_visible_only
+          console.log('Unable to subscribe to push.', e);
+          // subBtn.disabled = false;
+          // subBtn.textContent = 'Subscribe to Push Messaging';
+        }
+      });
+  });
+}
+
 console.log('MARIo');
 
 function onRegistration(registration) {
@@ -87,38 +128,54 @@ function onStateChange(from) {
     console.log('statechange', from, 'to', e.target.state);
 
     if (e.target.state === 'activated') {
-    NotEngine.sendMessage({
-      command: 'SET_NOTIFICATION',
-      options: {
-        timeout: 60*1000,
-        title: 'What did you do last hour?',
-        config: {
-          body: 'Bla bla bla',
-          requireInteraction: true,
-        },
-      },
-    }).then(function () {
-      // If the promise resolves, just display a success message.
-      // ChromeSamples.setStatus('Added to cache.');
-      console.log('Messages sent');
-    }).catch((err) => {
-      // console.log('Error send messgabe');
-      console.error(err);
-    }); // If t
-  }
+
+        // NotEngine.sendMessage({
+        //   command: 'SET_NOTIFICATION',
+        //   options: {
+        //     timeout: 60*1000,
+        //     title: 'What did you do last hour?',
+        //     config: {
+        //       body: 'Bla bla bla',
+        //       requireInteraction: true,
+        //     },
+        //   },
+        // }).then(function () {
+        //   // If the promise resolves, just display a success message.
+        //   // ChromeSamples.setStatus('Added to cache.');
+        //   console.log('Messages sent');
+        // }).catch((err) => {
+        //   // console.log('Error send messgabe');
+        //   console.error(err);
+        // }); // If t
+    }
   };
 }
 
 navigator.serviceWorker.register('sw.js', { scope: './' })
     .then(navigator.serviceWorker.ready)
     .then(onRegistration)
-    .then(function (registration) {
-      console.log(registration);
+    .then(function (serviceWorkerRegistration) {
+      console.log(serviceWorkerRegistration);
 
+      // Check for PUsh notification api
 
+      // serviceWorkerRegistration.pushManager.permissionState().then(
+      //   function (pushPermissionStatus) {
+      //
+      // // If we don't have permission then set the UI accordingly
+      //     if (pushPermissionStatus !== 'granted') {
+      //       //changeState(STATE_NOTIFICATION_PERMISSION);
+      //       console.log("we don't have permission fro PUSH");
+      //       return;
+      //     }
+      //
+      //   console.log("we HAVE permission fro PUSH");
+      //
+      //
+      //
+      //   })
 
-
-
+        subscribePush();
 
   // navigator.serviceWorker.controller.postMessage({'command': 'say-hello!'})
 
