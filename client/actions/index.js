@@ -1,8 +1,9 @@
 
-export const addActivity = (text) => {
+export const addActivity = (text, date) => {
   return {
     type: 'ADD_ACTIVITY',
     value: text,
+    date: date
   };
 };
 

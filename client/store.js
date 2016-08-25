@@ -2,6 +2,7 @@ import { createStore, compose } from 'redux';
 import rootReducer from './reducers/';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { browserHistory } from 'react-router';
+import moment from 'moment';
 
 /*
   Store
@@ -12,8 +13,8 @@ import { browserHistory } from 'react-router';
 
 const defaultState = {
   activities: [
-              { title: 'Meeting with dev', id: '12345' },
-              { title: 'Deploy new stuff', id: '654321' },
+              { title: 'Meeting with dev', id: '12345', date: moment().subtract(2, 'hour') },
+              { title: 'Deploy new stuff', id: '654321', date: moment().subtract(1, 'hour') },
   ],
 };
 

@@ -8,7 +8,8 @@ const password = (state = [], action) => {
 
       const activity = {
         title: action.value,
-        id: Date.now(),
+        date: action.date,
+        id: action.date.getTime(),
       };
 
       const newState = state.splice(0);

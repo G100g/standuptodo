@@ -20,10 +20,8 @@ class Main extends Component {
         <Layout>
           <Panel>
             <AppBar><IconButton icon="menu" inverse onClick={this.toggleDrawerActive} /></AppBar>
-            <div style={{ flex: 1, overflowY: 'auto', padding: '1.8rem' }}>
             {/* We use cloneElement here so we can auto pass down props */}
-              {React.cloneElement(this.props.children, this.props)}
-            </div>
+            {React.cloneElement(this.props.children, this.props)}
           </Panel>
         </Layout>);
     }
