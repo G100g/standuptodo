@@ -13,8 +13,8 @@ import moment from 'moment';
 
 const defaultState = {
   activities: [
-              { title: 'Meeting with dev', id: '12345', date: moment().subtract(2, 'hour') },
-              { title: 'Deploy new stuff', id: '654321', date: moment().subtract(1, 'hour') },
+              { title: 'Meeting with dev', id: '12345', date: moment().subtract(2, 'hour').toDate() },
+              { title: 'Deploy new stuff', id: '654321', date: moment().subtract(1, 'hour').toDate() },
   ],
 };
 

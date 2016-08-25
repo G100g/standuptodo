@@ -31,31 +31,34 @@ class AddForm extends Component {
           canSubmit: false
         };
 
-        if (props.params && props.params.id) {
-          // Popuplate form's state
 
-          let { title, date, id } = this._getSingle(props.params.id, props);
 
-          console.log(title, date, id);
+    // }
+    //
+    // componentDidMount() {
+      if (this.props.params && this.props.params.id) {
+        // Popuplate form's state
+        let { title, date, id } = this._getSingle(this.props.params.id, this.props);
+        //
+        // console.log(title, date, id);
+        //
+        this.state.id = id;
+        this.state.title = title;
+        this.state.date = date;
+        this.state.time = date;
+        this.state.canSubmit = true;
 
-          this.state.id = id;
-          this.state.title = title;
-          this.state.date = date;
-          this.state.time = date;
-          this.state.canSubmit = true;
-
-        }
-
+      }
     }
 
     _getSingle(id, props) {
       return props.activities
                           .filter((item) => {
                             console.log(item)
-                            return !(item.id === id);
+                            return (item.id === id);
                           })
                           .map((item) => {
-                            item.date = item.date.toDate();
+                            item.date = item.date;
                             return item;
                           })
                           .reduce((p, c) => {
