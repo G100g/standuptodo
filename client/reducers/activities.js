@@ -9,7 +9,7 @@ const password = (state = [], action) => {
       let activity = {
         title: action.value,
         date: action.date,
-        id: action.date.getTime(),
+        id: '' + action.date.getTime(),
       };
 
       const newState = state.splice(0);
@@ -34,7 +34,7 @@ const password = (state = [], action) => {
       let edited_activity = {
         title: action.value,
         date: action.date,
-        id: action.date.getTime(),
+        id: '' + action.date.getTime(),
       };
 
       // Remove current activity with id
