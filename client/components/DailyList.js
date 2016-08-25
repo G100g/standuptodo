@@ -16,7 +16,10 @@ class DailyList extends Component {
     return (<div>
 
       <List>
-        {activities.map(activity => <Activity key={activity.id} {...activity} />)}
+        {activities.sort((a, b) => {
+          return a.date > b.date ? -1 : a.date < b.date ? 1 : 0;
+        })
+        .map(activity => <Activity key={activity.id} {...activity} />)}
       </List>
 
       <Link to="/add">
