@@ -19,12 +19,48 @@ import TimePicker from 'react-toolbox/lib/time_picker';
 class AddForm extends Component {
     constructor(props) {
         super(props)
+
+        // if (this.prop.param)
+        console.log(props.params);
+
         this.state = {
+          id: null,
           title: '',
           time: new Date(),
           date: new Date(),
           canSubmit: false
         };
+
+        if (props.params && props.params.id) {
+          // Popuplate form's state
+
+          let { title, date, id } = this._getSingle(props.params.id, props);
+
+          console.log(title, date, id);
+
+          this.state.id = id;
+          this.state.title = title;
+          this.state.date = date;
+          this.state.time = date;
+          this.state.canSubmit = true;
+
+        }
+
+    }
+
+    _getSingle(id, props) {
+      return props.activities
+                          .filter((item) => {
+                            console.log(item)
+                            return !(item.id === id);
+                          })
+                          .map((item) => {
+                            item.date = item.date.toDate();
+                            return item;
+                          })
+                          .reduce((p, c) => {
+                            return c;
+                          });
     }
 
     handleChange(item, value) {
@@ -65,7 +101,13 @@ class AddForm extends Component {
       var datetime = new Date(this.state.date.getFullYear(), this.state.date.getMonth(), this.state.date.getDate(),
                               this.state.time.getHours(), this.state.time.getMinutes(), this.state.time.getSeconds());
 
-      this.props.addActivity(this.state.title, datetime);
+      if (this.state.id !== null) {
+        this.props.saveActivity(this.state.id, this.state.title, datetime);
+      } else {
+        this.props.addActivity(this.state.title, datetime);
+      }
+
+
       // browserHistory.push('/');
     }
 

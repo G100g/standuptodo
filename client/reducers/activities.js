@@ -6,7 +6,7 @@ const password = (state = [], action) => {
 
       // Apply password transformation
 
-      const activity = {
+      let activity = {
         title: action.value,
         date: action.date,
         id: action.date.getTime(),
@@ -28,6 +28,24 @@ const password = (state = [], action) => {
     //
     //   return { ...state, result: saltedPassword, domain: action.value };
     //   // return Object.assign({}, state, { result: saltedPassword, domain: action.value });
+
+    case 'SAVE_ACTIVITY':
+
+      let edited_activity = {
+        title: action.value,
+        date: action.date,
+        id: action.date.getTime(),
+      };
+
+      // Remove current activity with id
+
+      const activities = state.filter((activity) => {
+        return activity.id !== action.id;
+      });
+
+      activities.push(edited_activity);
+
+      return activities;
 
     default:
       return state;

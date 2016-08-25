@@ -26,6 +26,7 @@ render(
         <Route path="/" component={AppContainer}>
           <IndexRoute component={DailyList} />
           <Route path="/add" component={AddForm} />
+          <Route path="/edit/:id" component={AddForm} />
         </Route>
       </Router>
   </Provider>,
