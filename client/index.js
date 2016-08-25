@@ -13,9 +13,9 @@ import AppContainer from './components/AppContainer';
 import DailyList from './components/DailyList';
 import AddForm from './components/AddForm';
 
-import NotEngine from './libs/notifications';
-
-NotEngine.setup();
+// import NotEngine from './libs/notifications';
+//
+// NotEngine.setup();
 
 // import 'normalize.css';
 import './styles/base.scss';

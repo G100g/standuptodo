@@ -42,7 +42,7 @@ class AddForm extends Component {
 
         <Button label="Save" raised primary onClick={this.onTap.bind(this)} />
 
-        <Link to="/">
+        <Link to="/"> 
           <Button label="Close" flat/>
         </Link>
       </Card>
