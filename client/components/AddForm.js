@@ -58,7 +58,10 @@ class AddForm extends Component {
                             return (item.id === id);
                           })
                           .map((item) => {
-                            item.date = item.date;
+
+                            item.date = new Date(item.date);
+                            
+                            item.time = item.date;
                             return item;
                           })
                           .reduce((p, c) => {
