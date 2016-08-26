@@ -2,6 +2,8 @@ import { createStore, compose } from 'redux';
 import rootReducer from './reducers/';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { browserHistory } from 'react-router';
+import { persistStore, autoRehydrate } from 'redux-persist';
+import localForage from 'localForage';
 import moment from 'moment';
 
 /*
@@ -19,6 +21,7 @@ const defaultState = {
 };
 
 const enhancers = compose(
+  autoRehydrate(),
   window.devToolsExtension ? window.devToolsExtension() : f => f
 );
 
@@ -26,6 +29,11 @@ const store = createStore(rootReducer, defaultState, enhancers);
 
 // we export history because we need it in `reduxstagram.js` to feed into <Router>
 export const history = syncHistoryWithStore(browserHistory, store);
+
+persistStore(store, {
+  whitelist: ['activities'],
+  storage: localForage,
+});
 
 /*
   Enable Hot Reloading for the reducers
