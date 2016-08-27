@@ -60,7 +60,7 @@ class AddForm extends Component {
                           .map((item) => {
 
                             item.date = new Date(item.date);
-                            
+
                             item.time = item.date;
                             return item;
                           })
@@ -119,9 +119,7 @@ class AddForm extends Component {
 
     render() {
       return (
-                    <div style={{ flex: 1, overflowY: 'auto', padding: '1.8rem' }}>
-      <Card>
-        <h1>Add</h1>
+        <div style={{ flex: 1, overflowY: 'auto', padding: '1.8rem' }}>
 
           <Input type='text' multiline label='What did you do in the last hour?' value={this.state.title} onChange={this.handleChange.bind(this, 'title')} />
 
@@ -139,8 +137,6 @@ class AddForm extends Component {
           <Link to="/">
             <Button label="Close" flat/>
           </Link>
-
-      </Card>
       </div>
     );
   }

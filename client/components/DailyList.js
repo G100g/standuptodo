@@ -9,12 +9,18 @@ import moment from 'moment';
 
 import Activity from './Activity';
 
+const actionButton = {
+  position: 'absolute',
+  bottom: 25,
+  right: 25,
+};
+
 class DailyList extends Component {
 
   render() {
     const { activities } = this.props;
 
-    return (<div>
+    return (<div style={{ flex: 1, overflowY: 'auto' }}>
 
       <List>
         {activities.sort((a, b) => {
@@ -56,8 +62,8 @@ class DailyList extends Component {
         })}
       </List>
 
-      <Link to="/add">
-        <Button icon="add" floating />
+      <Link style={actionButton} to="/add">
+        <Button icon="add" floating primary />
       </Link>
     </div>
     );

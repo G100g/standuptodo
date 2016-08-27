@@ -13,6 +13,8 @@ import AppContainer from './components/AppContainer';
 import DailyList from './components/DailyList';
 import AddForm from './components/AddForm';
 
+import {MainNav,AddNav} from './components/AppNavs';
+
 // import NotEngine from './libs/notifications';
 //
 // NotEngine.setup();
@@ -24,9 +26,9 @@ render(
   <Provider store={store}>
       <Router history={history}>
         <Route path="/" component={AppContainer}>
-          <IndexRoute component={DailyList} />
-          <Route path="/add" component={AddForm} />
-          <Route path="/edit/:id" component={AddForm} />
+          <IndexRoute components={{ main: DailyList, nav: MainNav}} />
+          <Route path="/add" components={{ main: AddForm, nav: AddNav}} />
+          <Route path="/edit/:id" components={{ main: AddForm, nav: AddNav}} />
         </Route>
       </Router>
   </Provider>,
