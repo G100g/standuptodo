@@ -11,7 +11,8 @@
     "clean": "rimraf dist/build",
     "start": "node devServer.js",
     "fix": "eslint --fix *.js",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "manifest": "pwa-manifest ./dist ./dist --icons=./assets/icon.png"
   },
   "author": "",
   "license": "ISC",
@@ -29,6 +30,7 @@
     "express": "^4.13.4",
     "gh-pages": "^0.11.0",
     "gulp-gh-pages": "^0.5.4",
+    "pwa-manifest-cli": "^1.1.2",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1",
     "webpack-hot-middleware": "^2.12.1"
