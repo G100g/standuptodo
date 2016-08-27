@@ -4,7 +4,8 @@ import { Link } from 'react-router';
 
 import { Button } from 'react-toolbox/lib/button';
 
-import { List } from 'react-toolbox/lib/list';
+import { List, ListSubHeader } from 'react-toolbox/lib/list';
+import moment from 'moment';
 
 import Activity from './Activity';
 
@@ -19,7 +20,40 @@ class DailyList extends Component {
         {activities.sort((a, b) => {
           return a.date > b.date ? -1 : a.date < b.date ? 1 : 0;
         })
-        .map(activity => <Activity key={activity.id} {...activity} />)}
+        .reduce((result, item) => {
+          // need to split by day
+
+          const date = moment(item.date);
+          let lastDate = moment();
+          const lastItem = result.length > 0 ? result[result.length - 1] : null;
+          const lastIsHeader = (lastItem && lastItem.type && lastItem.type === 'header');
+
+          if ((lastItem && !lastIsHeader)) {
+            lastDate = moment(lastItem.item.date);
+          }
+
+          if (date.dayOfYear() !== lastDate.dayOfYear() && !lastIsHeader) {
+            result.push(
+              {
+                type: 'header',
+                item: {
+                  id: date.toDate(),
+                  title: date.format('dddd MMMM Do YYYY'),
+                },
+              });
+          }
+
+          result.push({ type: 'item', item });
+
+
+          return result;
+        }, [])
+        .map(activity => {
+          if (activity.type === 'header') {
+            return <ListSubHeader key={activity.item.id} caption={activity.item.title} />;
+          }
+          return <Activity key={activity.item.id} {...activity.item} />;
+        })}
       </List>
 
       <Link to="/add">
