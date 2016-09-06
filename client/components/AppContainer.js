@@ -6,6 +6,7 @@ import Main from './Main';
 function mapStateToProps(state) {
   return {
     activities: state.activities,
+    notifications: state.notifications,
   };
 }
 

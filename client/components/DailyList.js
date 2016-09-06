@@ -8,6 +8,7 @@ import { List, ListSubHeader } from 'react-toolbox/lib/list';
 import moment from 'moment';
 
 import Activity from './Activity';
+import AlertButton from './AlertButton';
 
 const actionButton = {
   position: 'absolute',
@@ -21,6 +22,8 @@ class DailyList extends Component {
     const { activities } = this.props;
 
     return (<div style={{ flex: 1, overflowY: 'auto' }}>
+
+      <AlertButton {...this.props} />
 
       <List>
         {activities.sort((a, b) => {

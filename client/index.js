@@ -15,9 +15,11 @@ import AddForm from './components/AddForm';
 
 import {MainNav,AddNav} from './components/AppNavs';
 
-// import NotEngine from './libs/notifications';
+import NotEngine from './libs/notifications';
 //
 // NotEngine.setup();
+
+NotEngine.init(store);
 
 // import 'normalize.css';
 import './styles/base.scss';

@@ -17,7 +17,7 @@ export const MainNav = () => {
 export const AddNav = () => {
 
       return (<div>
-              <Link to="/"><IconButton icon="arrow back" inverse  /></Link>               Stand Up To Do
+              <Link to="/"><IconButton icon="arrow_back" inverse  /></Link>               Stand Up To Do
               </div>
             );
 };

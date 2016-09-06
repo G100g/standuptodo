@@ -1,4 +1,4 @@
-const password = (state = [], action) => {
+const activities = (state = [], action) => {
 
   switch (action.type) {
 
@@ -53,4 +53,4 @@ const password = (state = [], action) => {
   }
 };
 
-export default password;
+export default activities;
