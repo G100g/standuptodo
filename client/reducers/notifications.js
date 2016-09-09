@@ -1,6 +1,6 @@
 import { ADD_NOTIFICATION, NOTIFICATION_AVAILABLE, NOTIFICATION_NOT_AVAILABLE } from '../actions/';
 
-const notifications = (state = [], action) => {
+const notifications = (state = { active: false, next: null, available: false }, action) => {
 
   switch (action.type) {
 
@@ -12,11 +12,11 @@ const notifications = (state = [], action) => {
 
     case NOTIFICATION_AVAILABLE:
 
-      return Object.assign(state, { available: true });
+      return Object.assign({}, state, { available: true });
 
     case NOTIFICATION_NOT_AVAILABLE:
 
-      return Object.assign(state, { available: false });
+      return Object.assign({}, state, { available: false });
 
     default:
       return state;

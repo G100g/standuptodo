@@ -4,6 +4,7 @@ import * as actionCreators from '../actions';
 import Main from './Main';
 
 function mapStateToProps(state) {
+  console.log(state);
   return {
     activities: state.activities,
     notifications: state.notifications,

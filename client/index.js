@@ -19,7 +19,6 @@ import NotEngine from './libs/notifications';
 //
 // NotEngine.setup();
 
-NotEngine.init(store);
 
 // import 'normalize.css';
 import './styles/base.scss';
@@ -37,3 +36,5 @@ render(
 
   document.getElementById('root')
 );
+
+NotEngine.init(store);

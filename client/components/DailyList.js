@@ -19,11 +19,11 @@ const actionButton = {
 class DailyList extends Component {
 
   render() {
-    const { activities } = this.props;
+    const { activities, ...otherProps } = this.props;
 
     return (<div style={{ flex: 1, overflowY: 'auto' }}>
 
-      <AlertButton {...this.props} />
+      <AlertButton {...otherProps} />
 
       <List>
         {activities.sort((a, b) => {
