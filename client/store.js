@@ -1,7 +1,10 @@
-import { createStore, compose } from 'redux';
+import { createStore, compose, applyMiddleware } from 'redux';
 import rootReducer from './reducers/';
+
+import thunk from 'redux-thunk';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { browserHistory } from 'react-router';
+
 import { persistStore, autoRehydrate } from 'redux-persist';
 import localForage from 'localForage';
 import moment from 'moment';
@@ -22,6 +25,7 @@ const defaultState = {
 };
 
 const enhancers = compose(
+  applyMiddleware(thunk),
   autoRehydrate(),
   window.devToolsExtension ? window.devToolsExtension() : f => f
 );

@@ -13,23 +13,28 @@ const Notify = {
     return self.registration.showNotification('Hi folks', { body: 'Nice to meet you' });
   },
 
-  activate(options) {
+  activate(notification) {
 
-  console.log(options);
+    console.log(notification);
 
+    this.notification = notification;
 
-  this.ST = setTimeout(function () {
-    self.registration.showNotification(options.title, options.config);
-  }, options.timeout);
+    this.ST = setTimeout(function () {
+      self.registration.showNotification(notification.title, notification.config);
+    }, notification.timeout);
 
-  return this
-},
+    return this
+  },
 
-clear() {
-  clearTimeout(this.ST);
-  return this;
-},
+  getNotification() {
+    return this.notification;
+  },
 
+  clear() {
+    this.notification = null;
+    clearTimeout(this.ST);
+    return this;
+  },
 
 };
 
@@ -58,10 +63,18 @@ self.addEventListener('message', function (event) {
 
     case 'SET_NOTIFICATION':
       Notify.clear().activate(event.data.options);
+
+        event.ports[0].postMessage({
+          type: 'NOTIFICATION_SET'
+        });
       break;
 
     case 'CLEAR_NOTIFICATION':
-      // Notify.clear();
+      Notify.clear();
+      break;
+
+    case 'GET_NOTIFICATION':
+        event.ports[0].postMessage(Notify.getNotification());
       break;
   }
 
