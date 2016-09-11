@@ -36,7 +36,7 @@ class DailyList extends Component {
         .reduce((result, item) => {
           // need to split by day
 
-          const date = moment(item.date);
+          const date = moment(item.date, moment.ISO_8601);
           let lastDate = moment();
           const lastItem = result.length > 0 ? result[result.length - 1] : null;
           const lastIsHeader = (lastItem && lastItem.type && lastItem.type === 'header');
