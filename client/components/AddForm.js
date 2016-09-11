@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Link, browserHistory } from 'react-router';
 
 import { Card, CardMedia, CardTitle, CardText, CardActions } from 'react-toolbox/lib/card';
+import Navigation from 'react-toolbox/lib/navigation';
 
 import Button from 'react-toolbox/lib/button';
 import Input from 'react-toolbox/lib/input';
@@ -102,8 +103,6 @@ class AddForm extends Component {
 
     submit(model) {
       // someDep.saveEmail(model.email);
-      console.log("Save")
-
       var datetime = new Date(this.state.date.getFullYear(), this.state.date.getMonth(), this.state.date.getDate(),
                               this.state.time.getHours(), this.state.time.getMinutes(), this.state.time.getSeconds());
 
@@ -115,6 +114,12 @@ class AddForm extends Component {
 
 
       // browserHistory.push('/');
+    }
+
+    deleteActivity() {
+
+      this.props.deleteActivity(this.state.id);
+
     }
 
     render() {
@@ -131,12 +136,17 @@ class AddForm extends Component {
             value={this.state.time}
           />
 
-          <Button label="Save" raised primary disabled={!this.state.canSubmit} onClick={this.submit.bind(this)} />
+          <Navigation>
+
+            <Button label="Save" raised primary disabled={!this.state.canSubmit} onClick={this.submit.bind(this)} />
 
 
-          <Link to="/">
-            <Button label="Close" flat/>
-          </Link>
+            <Link to="/">
+              <Button label="Close" flat/>
+            </Link>
+
+            <Button label="Delete" icon="delete" disabled={!this.state.id} raised onClick={this.deleteActivity.bind(this)} />
+          </Navigation>
       </div>
     );
   }

@@ -1,5 +1,6 @@
+import { DELETE_ACTIVITY } from '../actions';
+import moment from 'moment';
 const activities = (state = [], action) => {
-
   switch (action.type) {
 
     case 'ADD_ACTIVITY':
@@ -8,7 +9,7 @@ const activities = (state = [], action) => {
 
       let activity = {
         title: action.value,
-        date: action.date,
+        date: moment(action.date).toISOString(),
         id: '' + action.date.getTime(),
       };
 
@@ -33,7 +34,7 @@ const activities = (state = [], action) => {
 
       let edited_activity = {
         title: action.value,
-        date: action.date,
+        date: moment(action.date).toISOString(),
         id: '' + action.date.getTime(),
       };
 
@@ -46,6 +47,14 @@ const activities = (state = [], action) => {
       activities.push(edited_activity);
 
       return activities;
+
+    case DELETE_ACTIVITY:
+console.log(action.id);
+      const deleted_activities = state.filter((activity) => {
+        return activity.id !== action.id;
+      });
+
+      return deleted_activities;
 
     default:
       return state;

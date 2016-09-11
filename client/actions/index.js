@@ -14,10 +14,11 @@ export const saveActivity = (id, value, date) => ({
   id,
 });
 
-export const deleteActiviy = (id) => {
+export const DELETE_ACTIVITY = 'DELETE_ACTIVITY';
+export const deleteActivity = (id) => {
   return {
-    type: 'DELETE_ACTIVITY',
-    value: id,
+    type: DELETE_ACTIVITY,
+    id,
   };
 };
 

@@ -21,14 +21,18 @@ class DailyList extends Component {
   render() {
     const { activities, ...otherProps } = this.props;
 
+    const sortedActivities = activities.sort((a, b) => {
+      return a.date > b.date ? -1 : a.date < b.date ? 1 : 0;
+    });
+
+    console.log(sortedActivities);
+
     return (<div style={{ flex: 1, overflowY: 'auto' }}>
 
       <AlertButton {...otherProps} />
 
       <List>
-        {activities.sort((a, b) => {
-          return a.date > b.date ? -1 : a.date < b.date ? 1 : 0;
-        })
+        {sortedActivities
         .reduce((result, item) => {
           // need to split by day
 
