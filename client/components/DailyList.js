@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 
 import { Button } from 'react-toolbox/lib/button';
 
-import { List, ListSubHeader } from 'react-toolbox/lib/list';
+import { List, ListSubHeader, ListDivider } from 'react-toolbox/lib/list';
 import moment from 'moment';
 
 import Activity from './Activity';
@@ -63,7 +63,10 @@ class DailyList extends Component {
         }, [])
         .map(activity => {
           if (activity.type === 'header') {
-            return <ListSubHeader key={activity.item.id} caption={activity.item.title} />;
+            return <div key={activity.item.id}>
+                      <ListDivider  />
+                      <ListSubHeader key={activity.item.id} caption={activity.item.title} />
+                    </div>;
           }
           return <Activity key={activity.item.id} {...activity.item} />;
         })}
