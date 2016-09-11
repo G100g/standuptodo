@@ -74,13 +74,15 @@ export const getNotiticationObject = function getNotiticationObject() {
       // ChromeSamples.setStatus('Added to cache.');
       console.log('Notification getted', notification);
 
-      dispatch(getNotitication(notification));
+      dispatch(getNotitication(notification || { next: null }));
     }).catch((err) => {
       console.log('Error get notification', err);
       dispatch(getNotitication(null));
     }); // If t
   };
 };
+
+
 
 export const setNotitication = function setNotitication() {
   return function (dispatch) {
@@ -109,6 +111,32 @@ export const setNotitication = function setNotitication() {
       // console.log('Error send messgabe');
       console.error(err);
       dispatch(errorAddingNotification());
+    }); // If t
+  };
+};
+
+export const CLEAR_NOTIFICATION = 'CLEAR_NOTIFICATION';
+
+export const clearedNotitication = (notification) => ({
+  type: CLEAR_NOTIFICATION,
+  notification
+});
+
+export const clearNotitication = function clearNotitication() {
+  return function (dispatch) {
+    // add new notification in one hour
+
+    NotEngine.sendMessage({
+      command: CLEAR_NOTIFICATION,
+    }).then(function () {
+      // If the promise resolves, just display a success message.
+      // ChromeSamples.setStatus('Added to cache.');
+      console.log('Notification cleared');
+      dispatch(clearedNotitication());
+    }).catch((err) => {
+      // console.log('Error send messgabe');
+      console.error(err);
+      dispatch(clearedNotitication());
     }); // If t
   };
 };

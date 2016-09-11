@@ -1,4 +1,4 @@
-import { ADD_NOTIFICATION, NOTIFICATION_AVAILABLE, NOTIFICATION_NOT_AVAILABLE, GET_NOTIFICATION } from '../actions/';
+import { ADD_NOTIFICATION, NOTIFICATION_AVAILABLE, NOTIFICATION_NOT_AVAILABLE, GET_NOTIFICATION, CLEAR_NOTIFICATION } from '../actions/';
 
 const notifications = (state = { active: false, next: null, available: false }, action) => {
 
@@ -11,10 +11,17 @@ const notifications = (state = { active: false, next: null, available: false }, 
 
     case GET_NOTIFICATION:
 
-      console.log(action.notification);
+      // Set a new reminder
+
+      let next = !!action.notification.next
+
+      return Object.assign({}, state, { next });
+
+    case CLEAR_NOTIFICATION:
 
       // Set a new reminder
-      return Object.assign({}, state, { next: action.notification.next });
+      return Object.assign({}, state, { next: null });
+
 
     case NOTIFICATION_AVAILABLE:
 

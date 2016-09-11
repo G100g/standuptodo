@@ -19,8 +19,9 @@ const Notify = {
 
     this.notification = notification;
 
-    this.ST = setTimeout(function () {
+    this.ST = setTimeout(() => {
       self.registration.showNotification(notification.title, notification.config);
+      this.clear();
     }, notification.timeout);
 
     return this
@@ -71,6 +72,9 @@ self.addEventListener('message', function (event) {
 
     case 'CLEAR_NOTIFICATION':
       Notify.clear();
+      event.ports[0].postMessage({
+        type: 'NOTIFICATION_CLEARED'
+      });
       break;
 
     case 'GET_NOTIFICATION':
