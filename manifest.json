@@ -4,7 +4,7 @@
   "short_name": "StandUp To Do",
   "display": "standalone",
   "orientation": "portrait",
-  "start_url": "/",
+  "start_url": "/standuptodo/",
   "icons": [
 		{
 			"src": "icon-72x72.png",
