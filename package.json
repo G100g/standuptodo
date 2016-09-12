@@ -11,7 +11,7 @@
     "clean": "rimraf dist/build",
     "start": "node devServer.js",
     "fix": "eslint --fix *.js",
-    "deploy": "gh-pages -d dist",
+    "deploy": "npm run build && gh-pages -d dist",
     "manifest": "pwa-manifest ./dist ./dist --icons=./assets/icon.png"
   },
   "author": "",
