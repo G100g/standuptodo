@@ -1,3 +1,5 @@
+import localPackage from 'json!../package.json';
+
 import 'react-toolbox/lib/commons.scss';
 
 import React from 'react';
@@ -19,17 +21,16 @@ import NotEngine from './libs/notifications';
 //
 // NotEngine.setup();
 
-
 // import 'normalize.css';
 import './styles/base.scss';
 
 render(
   <Provider store={store}>
       <Router history={history}>
-        <Route path="/" component={AppContainer}>
+        <Route path={"/"} component={AppContainer}>
           <IndexRoute components={{ main: DailyList, nav: MainNav}} />
-          <Route path="/add" components={{ main: AddForm, nav: AddNav}} />
-          <Route path="/edit/:id" components={{ main: AddForm, nav: AddNav}} />
+          <Route path="add" components={{ main: AddForm, nav: AddNav}} />
+          <Route path="edit/:id" components={{ main: AddForm, nav: AddNav}} />
         </Route>
       </Router>
   </Provider>,

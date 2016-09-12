@@ -72,7 +72,7 @@ class DailyList extends Component {
         })}
       </List>
 
-      <Link style={actionButton} to="/add">
+      <Link style={actionButton} to="add">
         <Button icon="add" floating primary />
       </Link>
     </div>

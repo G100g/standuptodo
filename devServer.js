@@ -1,3 +1,4 @@
+const package = require('./package.json');
 var path = require('path');
 var express = require('express');
 var webpack = require('webpack');
@@ -15,7 +16,7 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler));
 
-app.use('/', express.static(__dirname + '/dist'));
+app.use('/' + package.name, express.static(__dirname + '/dist'));
 
 app.get('*', function (req, res) {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));

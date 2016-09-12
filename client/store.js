@@ -1,9 +1,11 @@
+import localPackage from 'json!../package.json';
 import { createStore, compose, applyMiddleware } from 'redux';
 import rootReducer from './reducers/';
 
 import thunk from 'redux-thunk';
+import { createHistory } from 'history'
 import { syncHistoryWithStore } from 'react-router-redux';
-import { browserHistory } from 'react-router';
+import { useRouterHistory, browserHistory } from 'react-router';
 
 import { persistStore, autoRehydrate } from 'redux-persist';
 import localForage from 'localForage';
@@ -31,6 +33,10 @@ const enhancers = compose(
 );
 
 const store = createStore(rootReducer, defaultState, enhancers);
+
+// const browserHistory = useRouterHistory(createHistory)({
+//   basename: localPackage.name
+// });
 
 // we export history because we need it in `reduxstagram.js` to feed into <Router>
 export const history = syncHistoryWithStore(browserHistory, store);

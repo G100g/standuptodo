@@ -14,7 +14,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist', 'build'),
     filename: 'bundle.js',
-    publicPath: '/build/'
+    publicPath: '/standuptodo/build/'
   },
 
   // postcss: [
