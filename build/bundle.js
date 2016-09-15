@@ -28857,18 +28857,22 @@
 	  };
 	};
 	
-	var setNotitication = exports.setNotitication = function setNotitication() {
+	var setNotitication = exports.setNotitication = function setNotitication(minutes) {
 	  return function (dispatch) {
 	    // add new notification in one hour
-	    var timeout = (0, _moment2.default)().add(1, 'h').toDate();
+	    console.log(minutes);
+	    var endAlert = (0, _moment2.default)().add(minutes, 'm');
+	    var timeout = endAlert.diff((0, _moment2.default)());
+	
+	    console.log(endAlert, timeout, endAlert.diff((0, _moment2.default)(), 'seconds'));
 	
 	    dispatch(addNotification(timeout));
 	
 	    _notifications2.default.sendMessage({
 	      command: 'SET_NOTIFICATION',
 	      options: {
-	        next: timeout,
-	        timeout: 10 * 1000,
+	        next: endAlert.toDate(),
+	        timeout: timeout,
 	        title: 'What did you do last hour?',
 	        config: {
 	          // body: 'Bla bla bla',
@@ -65113,7 +65117,7 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var actionButton = {
-	  position: 'absolute',
+	  position: 'fixed',
 	  bottom: 25,
 	  right: 25
 	};
@@ -65248,6 +65252,8 @@
 	  value: true
 	});
 	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _react = __webpack_require__(4);
@@ -65260,11 +65266,21 @@
 	
 	var _button = __webpack_require__(487);
 	
+	var _input = __webpack_require__(637);
+	
+	var _input2 = _interopRequireDefault(_input);
+	
+	var _navigation = __webpack_require__(698);
+	
+	var _navigation2 = _interopRequireDefault(_navigation);
+	
 	var _moment = __webpack_require__(261);
 	
 	var _moment2 = _interopRequireDefault(_moment);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -65282,6 +65298,9 @@
 	
 	    _this.setReminder = _this.setReminder.bind(_this);
 	    _this.clearReminder = _this.clearReminder.bind(_this);
+	
+	    _this.state = { minutes: 60 };
+	
 	    return _this;
 	  }
 	
@@ -65294,12 +65313,17 @@
 	  }, {
 	    key: 'setReminder',
 	    value: function setReminder() {
-	      this.props.setNotitication();
+	      this.props.setNotitication(this.state.minutes);
 	    }
 	  }, {
 	    key: 'clearReminder',
 	    value: function clearReminder() {
 	      this.props.clearNotitication();
+	    }
+	  }, {
+	    key: 'handleChange',
+	    value: function handleChange(name, value) {
+	      this.setState(_extends({}, this.state, _defineProperty({}, name, value)));
 	    }
 	  }, {
 	    key: 'render',
@@ -65324,11 +65348,24 @@
 	
 	      return _react2.default.createElement(
 	        'div',
-	        null,
-	        infosView,
-	        _react2.default.createElement(_button.Button, { label: 'Clear', disabled: !notifications.available, onClick: this.clearReminder }),
-	        ' ',
-	        _react2.default.createElement(_button.Button, { label: 'Set Reminder', disabled: !notifications.available, onClick: this.setReminder, raised: true, primary: true })
+	        { style: { textAlign: 'center' } },
+	        _react2.default.createElement(
+	          'div',
+	          { style: { padding: '1.8rem 1.8rem 0' } },
+	          infosView
+	        ),
+	        _react2.default.createElement(
+	          _navigation2.default,
+	          { type: 'horizontal' },
+	          _react2.default.createElement(_button.Button, { label: 'Clear', disabled: !notifications.available, onClick: this.clearReminder }),
+	          ' ',
+	          _react2.default.createElement(_button.Button, { icon: 'add_alert', label: 'Set Reminder', disabled: !notifications.available, onClick: this.setReminder, raised: true, primary: true }),
+	          _react2.default.createElement(
+	            'div',
+	            { style: { display: 'inline-block', width: '50px', marginLeft: '1.5rem' } },
+	            _react2.default.createElement(_input2.default, { type: 'number', label: 'Minutes', name: 'minutes', value: this.state.minutes, onChange: this.handleChange.bind(this, 'minutes') })
+	          )
+	        )
 	      );
 	    }
 	  }]);
@@ -65502,7 +65539,7 @@
 	        this.props.addActivity(this.state.title, datetime);
 	      }
 	
-	      // browserHistory.push('/');
+	      _reactRouter.browserHistory.push('/');
 	    }
 	  }, {
 	    key: 'deleteActivity',
@@ -65516,7 +65553,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { style: { flex: 1, overflowY: 'auto', padding: '1.8rem' } },
-	        _react2.default.createElement(_input2.default, { type: 'text', multiline: true, label: 'What did you do in the last hour?', value: this.state.title, onChange: this.handleChange.bind(this, 'title') }),
+	        _react2.default.createElement(_input2.default, { type: 'text', label: 'What did you do in the last hour?', value: this.state.title, onChange: this.handleChange.bind(this, 'title') }),
 	        _react2.default.createElement(_date_picker2.default, { label: 'Event Date', onChange: this.handleChange.bind(this, 'date'), value: this.state.date }),
 	        _react2.default.createElement(_time_picker2.default, {
 	          label: 'Event time',
