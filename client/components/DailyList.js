@@ -11,7 +11,7 @@ import Activity from './Activity';
 import AlertButton from './AlertButton';
 
 const actionButton = {
-  position: 'absolute',
+  position: 'fixed',
   bottom: 25,
   right: 25,
 };

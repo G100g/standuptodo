@@ -112,8 +112,7 @@ class AddForm extends Component {
         this.props.addActivity(this.state.title, datetime);
       }
 
-
-      // browserHistory.push('/');
+      browserHistory.push('/');
     }
 
     deleteActivity() {
@@ -126,7 +125,7 @@ class AddForm extends Component {
       return (
         <div style={{ flex: 1, overflowY: 'auto', padding: '1.8rem' }}>
 
-          <Input type='text' multiline label='What did you do in the last hour?' value={this.state.title} onChange={this.handleChange.bind(this, 'title')} />
+          <Input type='text' label='What did you do in the last hour?' value={this.state.title} onChange={this.handleChange.bind(this, 'title')} />
 
           <DatePicker label='Event Date' onChange={this.handleChange.bind(this, 'date')} value={this.state.date} />
 

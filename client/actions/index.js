@@ -85,18 +85,22 @@ export const getNotiticationObject = function getNotiticationObject() {
 
 
 
-export const setNotitication = function setNotitication() {
+export const setNotitication = function setNotitication(minutes) {
   return function (dispatch) {
     // add new notification in one hour
-    let timeout = moment().add(1, 'h').toDate();
+    console.log(minutes);
+    let endAlert = moment().add(minutes, 'm');
+    let timeout = endAlert.diff(moment());
+
+    console.log(endAlert, timeout, endAlert.diff(moment(), 'seconds'));
 
     dispatch(addNotification(timeout));
 
     NotEngine.sendMessage({
       command: 'SET_NOTIFICATION',
       options: {
-        next: timeout,
-        timeout: 10 * 1000,
+        next: endAlert.toDate(),
+        timeout,
         title: 'What did you do last hour?',
         config: {
           // body: 'Bla bla bla',
